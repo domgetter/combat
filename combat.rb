@@ -17,9 +17,9 @@ class Gosu::Image
   
 end
 
-require_relative 'tank.rb'
-require_relative 'bullet.rb'
-require_relative 'cell.rb'
+require_relative 'lib/tank.rb'
+require_relative 'lib/bullet.rb'
+require_relative 'lib/cell.rb'
 
 class Combat < Gosu::Window
 
