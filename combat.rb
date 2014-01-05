@@ -1,4 +1,5 @@
-Dir.chdir(File.dirname(__FILE__))
+# uncomment following line for Ocra distribution
+#Dir.chdir(File.dirname(__FILE__))
 
 require 'gosu'
 require 'opengl'
