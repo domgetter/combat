@@ -11,5 +11,3 @@ require_relative 'combat/tank'
 require_relative 'combat/bullet'
 require_relative 'combat/cell'
 require_relative 'combat/game'
-
-Combat::Game.new.show

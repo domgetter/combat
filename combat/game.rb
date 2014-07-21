@@ -1,3 +1,4 @@
+
 module Combat
 
   class Game < Gosu::Window
@@ -77,21 +78,17 @@ module Combat
       if @menu
         case id
         when Gosu::KbDown then toggle_menu_position
-        when Gosu::KbUp   then toggle_menu_position
-        when Gosu::KbReturn
-          @menu_position == 0 ? @menu = false : close
+        when Gosu::KbUp then toggle_menu_position
+        when Gosu::KbReturn then @menu_position == 0 ? @menu = false : close
         when Gosu::KbEscape then close
-        else
         end
       else
         case id
-        when Gosu::KbE      then monitor
-        when Gosu::KbP      then pause
-        when Gosu::KbR      then restart
-        when Gosu::KbNumpadAdd
-          @scale += 1 if @scale < 5
-        when Gosu::KbNumpadSubtract
-          @scale -= 1 if @scale > 1
+        when Gosu::KbE then monitor
+        when Gosu::KbP then pause
+        when Gosu::KbR then restart
+        when Gosu::KbNumpadAdd then @scale += 1 if @scale < 5
+        when Gosu::KbNumpadSubtract then @scale -= 1 if @scale > 1
         when Gosu::KbSpace  then 5.times {make_new_tank(random_color)}
         when Gosu::KbEscape then @menu = true
         end
@@ -121,7 +118,7 @@ module Combat
     end
     
     def random_color
-      Gosu::Color.new(255, 200-150*rand, 200-150*rand, 200-150*rand)#rand(0..255), rand(0..255), rand(0..255))
+      Gosu::Color.new(255, 200-150*rand, 200-150*rand, 200-150*rand)
     end
     
     def kill_tanks(tank)
@@ -129,41 +126,41 @@ module Combat
     end
     
     def monitor
-      puts "------------------------------------------------------------------------"
-      puts
-      puts "Experiment has run for #{experiment_duration(:in_seconds)} seconds."
-      puts
-      puts @tanks.size.to_s + " Tanks on the screen"
-      puts
+    
+      output = ""
+      output += "------------------------------------------------------------------------\n\n"
+      output += "Experiment has run for #{experiment_duration(:in_seconds)} seconds.\n\n"
+      output += @tanks.size.to_s + " Tanks on the screen\n\n"
+      
       @youngest_tank = @oldest_tank = @highest_kill_tank = @tanks[0]
       @tanks.each do |tank|
         @highest_kill_tank = tank if tank.kills > @highest_kill_tank.kills
         @oldest_tank = tank if tank.age > @oldest_tank.age
         @youngest_tank = tank if tank.age < @youngest_tank.age
       end
-      puts "Oldest tank:"
-      puts "  Age: #{@oldest_tank.age_in_seconds} seconds"
-      puts "  Kills: #{@oldest_tank.kills}"
-      puts "  Instruction set: #{@oldest_tank.instruction_set}"
-      puts "  Generation: #{@oldest_tank.desc}"
-      puts "  Mutation Chance: #{(1-@oldest_tank.mutate)*100}%"
-      puts
-      puts "Youngest tank:"
-      puts "  Age: #{@youngest_tank.age_in_seconds} seconds"
-      puts "  Kills: #{@youngest_tank.kills}"
-      puts "  Instruction set: #{@youngest_tank.instruction_set}"
-      puts "  Generation: #{@youngest_tank.desc}"
-      puts "  Mutation Chance: #{(1-@youngest_tank.mutate)*100}%"
-      puts
-      puts "Bloodiest tank:"
-      puts "  Age: #{@highest_kill_tank.age_in_seconds} seconds"
-      puts "  Kills: #{@highest_kill_tank.kills}"
-      puts "  Instruction set: #{@highest_kill_tank.instruction_set}"
-      puts "  Generation: #{@highest_kill_tank.desc}"
-      puts "  Mutation Chance: #{(1-@highest_kill_tank.mutate)*100}%"
-      puts
-      puts
-    
+      
+      output += "Oldest tank:\n"
+      output += "  Age: #{@oldest_tank.age_in_seconds} seconds\n"
+      output += "  Kills: #{@oldest_tank.kills}\n"
+      output += "  Instruction set: #{@oldest_tank.instruction_set}\n"
+      output += "  Generation: #{@oldest_tank.desc}\n"
+      output += "  Mutation Chance: #{(1-@oldest_tank.mutate)*100}%\n\n"
+      
+      output += "Youngest tank:\n"
+      output += "  Age: #{@youngest_tank.age_in_seconds} seconds\n"
+      output += "  Kills: #{@youngest_tank.kills}\n"
+      output += "  Instruction set: #{@youngest_tank.instruction_set}\n"
+      output += "  Generation: #{@youngest_tank.desc}\n"
+      output += "  Mutation Chance: #{(1-@youngest_tank.mutate)*100}%\n\n"
+      
+      output += "Bloodiest tank:\n"
+      output += "  Age: #{@highest_kill_tank.age_in_seconds} seconds\n"
+      output += "  Kills: #{@highest_kill_tank.kills}\n"
+      output += "  Instruction set: #{@highest_kill_tank.instruction_set}\n"
+      output += "  Generation: #{@highest_kill_tank.desc}\n"
+      output += "  Mutation Chance: #{(1-@highest_kill_tank.mutate)*100}%\n\n\n"
+      
+      puts output
     end
     
     def experiment_duration(mode = :in_milliseconds)
@@ -249,7 +246,7 @@ module Combat
         1,
         0xffffffff
       )
-      string = "\u02A6"
+      string = "Quit"
       @menu_font.draw(
         string,
         WIDTH/2-@menu_font.text_width(string)/2-45,
