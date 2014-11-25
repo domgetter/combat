@@ -14,7 +14,7 @@ module Combat
         mutate = 0.75,
         fertility_rate = 0.006)
       
-      @image = Gosu::Image.new(window, "media/tank.bmp", false).retro!
+      @image = Gosu::Image.new(window, "media/tank.bmp", false)
 
       @x, @y = (rand(1500))%window.width, (rand(1500))%window.height
       @angle = 22.5*rand(16)
